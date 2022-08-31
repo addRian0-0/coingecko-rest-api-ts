@@ -1,9 +1,9 @@
 import { SetFechas } from "../types/SetFechas";
 
-export const fechas7Dias = (): SetFechas => {
+export const fechasDias = (hace: number): SetFechas => {
 
     let actual = Date.now(); //Fecha en UNIX
-    let dias7 = actual - 1000 * 60 * 60 * 24 * 7; 
+    let dias7 = actual - 1000 * 60 * 60 * 24 * hace; 
 
     let date = new Date(dias7);
     let fechaFormat = date.toLocaleString();
