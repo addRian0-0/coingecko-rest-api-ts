@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { createClient } from "redis";
 import { getMarketChartRangeRedis } from "../database/redis-controller";
 
 export const getMarketChartRange = async (req: Request, res: Response) => {
