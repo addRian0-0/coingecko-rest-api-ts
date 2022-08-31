@@ -9,13 +9,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getCryptos = void 0;
-const coingecko_1 = require("../api/coingecko");
-const getCryptos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield coingecko_1.coingeckoApi.get(`coins/markets?vs_currency=usd`);
-    console.log(result.status);
-    res.json({
-        result: result.data
-    });
+exports.getMarketChartRange = void 0;
+const redis_controller_1 = require("../database/redis-controller");
+const save_redis_1 = require("../helpers/save-redis");
+const getMarketChartRange = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { name } = req.params;
+    /* Verificar si la informacion esta en redis para contestarla */
+    let days = [7];
+    let reply = (0, redis_controller_1.getMarketChartRangeRedis)({ name, days });
+    if (!reply) {
+        (0, save_redis_1.actualizarCryptos)();
+    }
+    reply = (0, redis_controller_1.getMarketChartRangeRedis)({ name, days });
+    res.status(200).json(reply);
 });
-exports.getCryptos = getCryptos;
+exports.getMarketChartRange = getMarketChartRange;

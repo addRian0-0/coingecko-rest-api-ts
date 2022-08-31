@@ -7,12 +7,12 @@ export const saveCrypto = async (req: Request, res: Response) => {
 
     const { id_crypto } = req.body;
 
-    /* const newCrypto = await CryptoModel.create({ name: id_crypto }); */
-    actualizarCryptos();
+    const newCrypto = await CryptoModel.create({ name: id_crypto });
+    actualizarCryptos(name: id_crypto);
 
     res.status(200).json({
         msg: "Se agregó la criptomoneda con éxito.",
-        /* newCrypto */
+        newCrypto
     });
 
 }

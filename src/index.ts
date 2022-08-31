@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import { connectDB } from "./database/mongoose-config";
 import routerToDB from "./routes/manipulate-db";
 import routerCrypto from "./routes/crypto";
+import { actualizarCrytosMedianoche } from "./helpers/save-redis";
 
 /* Config server */
 dotenv.config();
@@ -16,3 +17,5 @@ app.listen(port, () => console.log(`Listen in port: ${port}...`));
 /* Routes */
 app.use("/db", routerToDB);
 app.use("/crypto", routerCrypto);
+
+actualizarCrytosMedianoche();

@@ -15,7 +15,7 @@ const User_1 = require("./User");
 class Crypto {
 }
 __decorate([
-    (0, typegoose_1.prop)({ required: true, trim: true }),
+    (0, typegoose_1.prop)({ required: true, trim: true, unique: true }),
     __metadata("design:type", String)
 ], Crypto.prototype, "name", void 0);
 __decorate([

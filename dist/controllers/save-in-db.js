@@ -13,11 +13,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createUser = exports.saveCrypto = void 0;
+const save_redis_1 = require("../helpers/save-redis");
 const User_1 = __importDefault(require("../models/User"));
 const saveCrypto = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id_crypto } = req.body;
+    /* const newCrypto = await CryptoModel.create({ name: id_crypto }); */
+    (0, save_redis_1.actualizarCryptos)();
     res.status(200).json({
-        msg: `Guardar crypto: ${id_crypto}`
+        msg: "Se agregó la criptomoneda con éxito.",
+        /* newCrypto */
     });
 });
 exports.saveCrypto = saveCrypto;

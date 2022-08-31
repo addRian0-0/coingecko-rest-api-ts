@@ -14,7 +14,7 @@ const typegoose_1 = require("@typegoose/typegoose");
 class User {
 }
 __decorate([
-    (0, typegoose_1.prop)({ required: true, trim: true }),
+    (0, typegoose_1.prop)({ required: true, trim: true, unique: true }),
     __metadata("design:type", String)
 ], User.prototype, "name", void 0);
 __decorate([
