@@ -14,14 +14,14 @@ export const actualizarCryptos = async (name: string) => {
         let { anterior, actual } = fechasDias(7);
         let fecha30 = fechasDias(30);
         let fecha90 = fechasDias(90);
-
-        const [res7, res30, res90] = await Promise.all([
+        //[, , ,]
+        const responses = await Promise.all([
             coingeckoApi.get(`coins/${name}/market_chart/range?vs_currency=usd&from=${anterior}&to=${actual}`),
             coingeckoApi.get(`coins/${name}/market_chart/range?vs_currency=usd&from=${fecha30.anterior}&to=${actual}`),
             coingeckoApi.get(`coins/${name}/market_chart/range?vs_currency=usd&from=${fecha90.anterior}&to=${actual}`)
-        ])
-        //reprogramar
-        /* saveMarketChartRangeRedis({ status, data: [{ day: 7, data, name }] }); */
+        ]);
+
+        saveMarketChartRangeRedis(responses);
 
     } catch (error) {
         console.error(`Error en actualizarCryptos ${error}`);

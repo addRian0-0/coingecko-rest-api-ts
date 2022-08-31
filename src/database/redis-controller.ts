@@ -1,7 +1,7 @@
 import { createClient } from "redis";
 import { GetMarketChartRangeType, MarketChartRangeRedisType } from "../types/Redis";
 
-export const saveMarketChartRangeRedis = async ({ status, data }: MarketChartRangeRedisType) => {
+export const saveMarketChartRangeRedis = async (responses: MarketChartRangeRedisType) => {
 
     const client = createClient();
     client.on("error", (err) => console.error(`Redis client err: ${err}`));
