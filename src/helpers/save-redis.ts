@@ -3,7 +3,9 @@ import { coingeckoApi } from "../api/coingecko";
 import { saveMarketChartRangeRedis } from "../database/redis-controller";
 import CryptoModel from "../models/Crypto";
 import { ICoinMarketChartRange, GetCoinMarketChartRange } from "../types/Coingecko";
+import { MarketChartRangeRedisType } from "../types/Redis";
 import { fechasDias } from "./set-date-unix";
+import { delay } from "./utils";
 
 /* Cuando se guarde una nueva criptomoneda se lanzara para que actualice 
 que criptomonedas debe guardar en la media noche */
@@ -30,7 +32,7 @@ export const actualizarCryptos = async (name: string) => {
 }
 
 export const actualizarCrytosMedianoche = async () => {
-    cron.schedule(" */3 * * * *", async () => {
+    cron.schedule(" 0 0 0 * * *", async () => {
         //0 0 0 * * *
         const cryptos = await CryptoModel.find();
         cryptos.map(async crypto => {
@@ -47,11 +49,13 @@ export const actualizarCrytosMedianoche = async () => {
                     coingeckoApi.get(`coins/${crypto.name}/market_chart/range?vs_currency=usd&from=${fecha90.anterior}&to=${actual}`)
                 ]);
                 saveMarketChartRangeRedis({ res7, res30, res90, name: crypto.name });
+                await setTimeout(function () {
+                    //console.log(`se supone que se murio por 30s`);
+                }, 30000);
+
             } catch (err) {
                 console.error(`Error al actualizacRyptosMedianoche ${crypto.name} ${err}`);
             }
-
-
 
         });
 
